@@ -7,6 +7,9 @@
 header{
     background-color: #2e3a46;
     padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 header img{
     width: 50px;
@@ -15,7 +18,7 @@ header img{
 /* Main */
 main{
     background-color: #1e2d3b;
-    height: calc(100vh - (2rem + 50px));
+    height: 100%;
 }
 .container{
     width: 60%;
@@ -26,7 +29,7 @@ main{
 .cards-layout{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: stretch;
     gap: 1rem;
     
@@ -54,4 +57,5 @@ main{
 }
 .card-content h5{
     color: #808080;
+    font-size: 1.2rem;
 }
