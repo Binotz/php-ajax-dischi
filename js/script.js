@@ -8,36 +8,45 @@ var app = new Vue({
         APILink: 'http://localhost:8888/php-ajax-dischi/api.php'
     },
     methods:{
+        getAlbumsAndGenres: function(){
+            this.getAlbumsviaApi();
+            this.getGenreviaApi();
+        },
         getAlbumsviaApi: function(){
             axios.get(this.APILink)
-            .then((resp)=>{
-                this.albums = resp.data; 
-            })
+                .then((resp)=>{
+                    this.albums = resp.data; 
+                })
         },
         getGenreviaApi: function(){
             axios.get(this.APILink)
-            .then(resp =>{
-                let albums = resp.data;
-                albums.forEach(album => {
-                    //se il genere non è presente nella lista dei generi lo pusho
-                    if(!this.genres.includes(album.genre)){
-                        this.genres.push(album.genre);
-                    }
-                });
-            })
+                .then(resp =>{
+                    let albums = resp.data;
+                    albums.forEach(album => {
+                        //se il genere non è presente nella lista dei generi lo pusho
+                        if(!this.genres.includes(album.genre)){
+                            this.genres.push(album.genre);
+                        }
+                    });
+                })
         },
-        albumFiltered: function(){
-            if(this.genreSelected == 'All'){
-                //this.filteredAlbums = [...this.albums];
-                return this.albums;
-            }
-            return this.albums.filter(album =>{
-                return album.genre === this.genreSelected;
-            });
+        getFilteredAlbums: function(){
+            axios.get(this.APILink + '?genre=' + this.genreSelected)
+                .then((resp)=>{
+                    this.albums = resp.data; 
+                })
         }
     },
     mounted(){
         this.getAlbumsviaApi();
         this.getGenreviaApi();
+    },
+    computed:{
+        getAlbums: function(){
+            this.getAlbumsviaApi();
+        },
+        getGenres: function(){
+            this.getGenreviaApi();
+        }
     }
 });

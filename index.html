@@ -13,7 +13,7 @@
     <div id="root">
         <header>
             <img src="./assets/logo.png" alt="logo">
-            <select @change="albumFiltered" v-model="genreSelected">
+            <select @change="getFilteredAlbums()" v-model="genreSelected">
                 <option v-for="genre in genres" :value="genre">{{genre}}</option>
             </select>
         </header>
@@ -21,7 +21,7 @@
             <div class="container">
                 <div class="cards-layout">
                     <!-- Single card -->
-                    <div class="card-layout" v-for="album in albumFiltered()">
+                    <div class="card-layout" v-for="album in albums">
                         <div class="card-content">
                             <img :src="album.poster" alt="Card cover">
                             <h3>{{album.title}}</h3>
